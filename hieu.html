@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown to your birthday</title>
+    <style>
+        /* Cài đặt nền và bố cục */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe6f0; /* Nền hồng nhạt */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden; /* Đảm bảo giấy bay không tràn ra ngoài */
+        }
+
+        /* Định dạng container chính */
+        .countdown-container {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 680px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Tiêu đề với font chữ lớn */
+        h1 {
+            font-size: 2.5em;
+            color: #ff66b2; /* Màu hồng đậm */
+            margin-bottom: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hình ảnh bánh sinh nhật */
+        .birthday-cake {
+            width: 300px;  /* Kích thước cố định của bánh kem */
+            height: 300px;  /* Kích thước cố định của bánh kem */
+            background-image: images('images/cake2.jpg'); /* Đặt URL của ảnh bánh kem */
+            background-size: cover;
+            background-position: center;
+            border-radius: 500%;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Đếm ngược */
+        .countdown {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ff66b2;
+            margin-bottom: 20px;
+        }
+
+        /* Nút quay lại */
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background-color: #ff66b2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            display: none; /* Ẩn nút cho đến khi đếm ngược kết thúc */
+        }
+
+        /* Hiệu ứng hover cho nút */
+        button:hover {
+            background-color: #ff3399;
+            transform: translateY(-5px);
+        }
+
+        /* Hiệu ứng khi bấm vào nút */
+        button:active {
+            transform: translateY(2px);
+        }
+
+        /* Giấy bay như tuyết */
+        .confetti {
+            position: absolute;
+            top: -10%;
+            width: 10px;
+            height: 10px;
+            background-color: #ff66b2;
+            opacity: 0;
+            animation: confettiFall 10s infinite ease-in-out;
+        }
+
+        /* Thêm nhiều màu sắc khác nhau cho các mảnh giấy */
+        .confetti:nth-child(2) {
+            background-color: #ff3399;
+            animation-delay: 0.2s;
+        }
+
+        .confetti:nth-child(3) {
+            background-color: #ffcc00;
+            animation-delay: 0.4s;
+        }
+
+        .confetti:nth-child(4) {
+            background-color: #66ccff;
+            animation-delay: 0.6s;
+        }
+
+        .confetti:nth-child(5) {
+            background-color: #ff9933;
+            animation-delay: 0.8s;
+        }
+
+        .confetti:nth-child(6) {
+            background-color: #66ff66;
+            animation-delay: 1s;
+        }
+
+        .confetti:nth-child(7) {
+            background-color: #ffccff;
+            animation-delay: 1.2s;
+        }
+
+        .confetti:nth-child(8) {
+            background-color: #ff00ff;
+            animation-delay: 1.4s;
+        }
+
+        .confetti:nth-child(9) {
+            background-color: #00ccff;
+            animation-delay: 1.6s;
+        }
+
+        .confetti:nth-child(10) {
+            background-color: #ff6666;
+            animation-delay: 1.8s;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                top: -10%;
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                top: 100%;
+                transform: rotate(360deg) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Đảm bảo giao diện đẹp trên thiết bị di động */
+        @media (max-width: 600px) {
+            .countdown-container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .countdown {
+                font-size: 1.5em;
+            }
+
+            button {
+                font-size: 1em;
+                padding: 12px 24px;
+            }
+
+            .birthday-cake {
+                width: 150px; /* Kích thước bánh kem trên thiết bị di động */
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hiệu ứng giấy bay như tuyết -->
+    <div class="confetti" style="left: 5%; animation-duration: 12s;"></div>
+    <div class="confetti" style="left: 10%; animation-duration: 11s;"></div>
+    <div class="confetti" style="left: 15%; animation-duration: 14s;"></div>
+    <div class="confetti" style="left: 20%; animation-duration: 13s;"></div>
+    <div class="confetti" style="left: 25%; animation-duration: 15s;"></div>
+    <div class="confetti" style="left: 30%; animation-duration: 11s;"></div>
+    <div class="confetti" style="left: 35%; animation-duration: 16s;"></div>
+    <div class="confetti" style="left: 40%; animation-duration: 10s;"></div>
+    <div class="confetti" style="left: 45%; animation-duration: 17s;"></div>
+    <div class="confetti" style="left: 50%; animation-duration: 12s;"></div>
+    <div class="confetti" style="left: 55%; animation-duration: 15s;"></div>
+    <div class="confetti" style="left: 60%; animation-duration: 14s;"></div>
+    <div class="confetti" style="left: 65%; animation-duration: 13s;"></div>
+    <div class="confetti" style="left: 70%; animation-duration: 16s;"></div>
+    <div class="confetti" style="left: 75%; animation-duration: 10s;"></div>
+    <div class="confetti" style="left: 80%; animation-duration: 17s;"></div>
+    <div class="confetti" style="left: 85%; animation-duration: 12s;"></div>
+    <div class="confetti" style="left: 90%; animation-duration: 11s;"></div>
+    <div class="confetti" style="left: 95%; animation-duration: 14s;"></div>
+
+    <!-- Thêm nhạc -->
+    <audio id="background-music" autoplay loop>
+        <source src="https://soundcloud.com/c-ng-hi-u-nguy-n-956715713/nhacchill" type="audio/mp3">
+        Trình duyệt của bạn không hỗ trợ thẻ audio.
+    </audio>
+
+    <div class="countdown-container">
+        <h1>Countdown to your birthday</h1>
+        <div class="birthday-cake"></div>
+        <div class="countdown" id="countdown"></div>
+        <button id="openGiftButton" onclick="goToGiftBox()">Open 🎁</button>
+    </div>
+
+    <script>
+        // Đặt ngày sinh nhật (thay đổi theo ngày thực tế)
+        var birthday = new Date("jan 16, 2025 00:00:00").getTime();
+
+        // Cập nhật đếm ngược mỗi giây
+        var countdownInterval = setInterval(function() {
+
+            var now = new Date().getTime();
+            var distance = birthday - now;
+
+            // Tính toán thời gian còn lại
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Hiển thị kết quả
+            document.getElementById("countdown").innerHTML = days + " Ngày "+ hours + " giờ "
+            + minutes + " phút " + seconds + " giây ";
+
+            // Nếu đếm ngược kết thúc, hiển thị nút "Mở Quà"
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").innerHTML = "🎉 Happy Birthday 🎉";
+                document.getElementById("openGiftButton").style.display = "inline-block"; // Hiển thị nút
+            }
+        }, 1000);
+
+        // Hàm chuyển hướng đến trang mở quà
+        function goToGiftBox() {
+            window.location.href = "index.html"; // Liên kết đến trang mở quà
+        }
+    </script>
+
+</body>
+</html>
